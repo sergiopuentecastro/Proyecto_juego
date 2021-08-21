@@ -4,7 +4,13 @@ const game = {
     canvasSize: {h: null, w: null},
     background: null,
     timeInterval: 20,
+    borderTop: [],
+    borderBottom: [],
+    borderLeft: [],
+    borderRight: [],
+    verticalBars: [],
     map: [],
+    
     // Meter obstáculos, personaje, balas, whatever
     // keys: {}
     init(id) {
@@ -13,19 +19,24 @@ const game = {
         // Medidias fijas o en función de la pantalla?
         this.canvasSize = {h: 600, w: 1000};
         this.createMap()
-        
+        this.concatMap()
+        console.log(this.map)
+        this.drawMap()
         player = new Player(this.ctx, 60, 60, 30, 30)
         player.draw()
         player.setListener()
+        player.checkCollitions()
         // player.draw()
         //this.setMap();
         this.start();
     },
+
     start() {
         setInterval(() => {
             this.clearAll()
             player.draw()
-            this.createMap()
+            this.drawMap()
+            //player.checkCollitions()
         }, this.timeInterval);
     },
 
@@ -33,57 +44,81 @@ const game = {
         this.ctx.clearRect(0,0, this.canvasSize.w, this.canvasSize.h)
     },
 
-    /* En todas estas funciones, cuando actualizamos con el setInterval
+    /* HECHO (SE PUEDE ACCEDER A LO ANTERIOR CON GIT):
+    En todas estas funciones, cuando actualizamos con el setInterval
     sería mejor crear nuevas para solo dibujar el array en vez de recrearlo 
-    en cada actualización??? */
+    en cada actualización??? */ 
     createMap() {
         /* Todas estas funciones se pueden meter en 
         la clase cuadrado o reducirlo de alguna manera fuera
         de game??? */
-        this.bordersTopBottom(20, 550, 50)
-        this.bordersLeftRight(10, 950, 50)
-        this.interiorMap()
+        this.createBordersTopBottom(20, 550, 50)
+        this.createBordersLeftRight(10, 950, 50)
+        this.createInteriorMap()
     },
 
-    bordersTopBottom(squaresNum, space, squareSize) {
+    drawMap() {
+        this.drawBordersTopBottom()
+        this.drawBordersLeftRight()
+        // Interior map:
+        this.drawVerticalBars()
+    },
+
+    createInteriorMap() {
+        this.createVerticalBars(8, 150, 50, 50)
+        this.createVerticalBars(8, 300, 150, 50)
+        this.createVerticalBars(8, 450, 50, 50)
+        this.createVerticalBars(8, 600, 150, 50)
+        this.createVerticalBars(8, 750, 50, 50)
+    },
+
+    // Join all squares in one array to iterate and create collisions
+    concatMap() {
+        this.map = this.map.concat(this.borderTop, this.borderBottom, 
+                   this.borderLeft, this.borderRight, this.verticalBars);
+    },
+
+    createBordersTopBottom(squaresNum, space, squareSize) {
         /* Se podría sustituir squareSize por el tamaño de la clase?
         por ejemplo no poniendola fija en la clase si no metiéndolo
         como parámetro y poniéndolo aquí creando variable en game*/
-        let borderTop = [];
-        let borderBottom = [];
         for (let i = 0; i < squaresNum; i++) {
-            borderTop.push(new Square(this.ctx, [i * squareSize], 0));
-            borderTop[i].draw();
-            borderBottom.push(new Square(this.ctx, [i * squareSize], space));
-            borderBottom[i].draw();
+            this.borderTop.push(new Square(this.ctx, [i * squareSize], 0));
+            this.borderBottom.push(new Square(this.ctx, [i * squareSize], space));
         }
     },
 
-    bordersLeftRight(squaresNum, space, squareSize) {
-        let borderLeft = [];
-        let borderRight = [];
-        for (let i = 0; i < squaresNum; i++) {
-            borderLeft.push(new Square(this.ctx, 0, [(i + 1) * squareSize]));
-            borderLeft[i].draw();
-            borderRight.push(new Square(this.ctx, space, [(i + 1) * squareSize]));
-            borderRight[i].draw();
+    drawBordersTopBottom() {
+        for (let i = 0; i < this.borderTop.length; i++) {
+            this.borderTop[i].draw();
+            this.borderBottom[i].draw();
         }
     },
 
-    verticalBar(squaresNum, x, y, squareSize) {
-        let verticalBar = [];
+    createBordersLeftRight(squaresNum, space, squareSize) {
         for (let i = 0; i < squaresNum; i++) {
-            verticalBar.push(new Square(this.ctx, x, y + squareSize * i));
-            verticalBar[i].draw();
+            this.borderLeft.push(new Square(this.ctx, 0, [(i + 1) * squareSize]));
+            this.borderRight.push(new Square(this.ctx, space, [(i + 1) * squareSize]));
         }
     },
 
-    interiorMap() {
-        this.verticalBar(8, 150, 50, 50)
-        this.verticalBar(8, 300, 150, 50)
-        this.verticalBar(8, 450, 50, 50)
-        this.verticalBar(8, 600, 150, 50)
-        this.verticalBar(8, 750, 50, 50)
-    }
+    drawBordersLeftRight() {
+        for (let i = 0; i < this.borderLeft.length; i++) {
+            this.borderLeft[i].draw();
+            this. borderRight[i].draw();
+        }
+    },
+
+    createVerticalBars(squaresNum, x, y, squareSize) {
+        for (let i = 0; i < squaresNum; i++) {
+            this.verticalBars.push(new Square(this.ctx, x, y + squareSize * i));
+        }
+    },
+
+    drawVerticalBars() {
+        for (let i = 0; i < this.verticalBars.length; i++) {
+            this.verticalBars[i].draw();
+        }
+    },
 
 }
