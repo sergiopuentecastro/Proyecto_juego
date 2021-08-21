@@ -4,6 +4,7 @@ const game = {
     canvasSize: {h: null, w: null},
     background: null,
     timeInterval: 20,
+    map: [],
     // Meter obstáculos, personaje, balas, whatever
     // keys: {}
     init(id) {
@@ -11,12 +12,8 @@ const game = {
         this.ctx = this.canvas.getContext('2d');
         // Medidias fijas o en función de la pantalla?
         this.canvasSize = {h: 600, w: 1000};
-        /* Todas estas funciones se pueden meter en 
-        la clase cuadrado o reducirlo de alguna manera fuera
-        de game??? */
-        this.bordersTopBottom(20, 550, 50)
-        this.bordersLeftRight(10, 950, 50)
-        this.interiorMap()
+        this.createMap()
+        
         player = new Player(this.ctx, 60, 60, 30, 30)
         player.draw()
         player.setListener()
@@ -28,9 +25,7 @@ const game = {
         setInterval(() => {
             this.clearAll()
             player.draw()
-            this.bordersTopBottom(20, 550, 50)
-            this.bordersLeftRight(10, 950, 50)
-            this.interiorMap()
+            this.createMap()
         }, this.timeInterval);
     },
 
@@ -38,14 +33,22 @@ const game = {
         this.ctx.clearRect(0,0, this.canvasSize.w, this.canvasSize.h)
     },
 
+    /* En todas estas funciones, cuando actualizamos con el setInterval
+    sería mejor crear nuevas para solo dibujar el array en vez de recrearlo 
+    en cada actualización??? */
     createMap() {
+        /* Todas estas funciones se pueden meter en 
+        la clase cuadrado o reducirlo de alguna manera fuera
+        de game??? */
         this.bordersTopBottom(20, 550, 50)
         this.bordersLeftRight(10, 950, 50)
         this.interiorMap()
     },
 
     bordersTopBottom(squaresNum, space, squareSize) {
-        // Se podría sustituir squareSize por el tamaño de la clase?
+        /* Se podría sustituir squareSize por el tamaño de la clase?
+        por ejemplo no poniendola fija en la clase si no metiéndolo
+        como parámetro y poniéndolo aquí creando variable en game*/
         let borderTop = [];
         let borderBottom = [];
         for (let i = 0; i < squaresNum; i++) {
