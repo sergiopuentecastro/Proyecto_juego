@@ -3,22 +3,41 @@ const game = {
     ctx: null,
     canvasSize: {h: null, w: null},
     background: null,
+    timeInterval: 20,
     // Meter obstáculos, personaje, balas, whatever
     // keys: {}
     init(id) {
         this.canvas = document.getElementById(id);
         this.ctx = this.canvas.getContext('2d');
-        console.log('entro en init')
+        // Medidias fijas o en función de la pantalla?
+        this.canvasSize = {h: 600, w: 1000};
         /* Todas estas funciones se pueden meter en 
         la clase cuadrado o reducirlo de alguna manera fuera
         de game??? */
         this.bordersTopBottom(20, 550, 50)
         this.bordersLeftRight(10, 950, 50)
         this.interiorMap()
+        player = new Player(this.ctx, 60, 60, 30, 30)
+        player.draw()
+        player.setListener()
+        // player.draw()
         //this.setMap();
-        //this.start();
+        this.start();
     },
-    //start()
+    start() {
+        setInterval(() => {
+            this.clearAll()
+            player.draw()
+            this.bordersTopBottom(20, 550, 50)
+            this.bordersLeftRight(10, 950, 50)
+            this.interiorMap()
+        }, this.timeInterval);
+    },
+
+    clearAll() {
+        this.ctx.clearRect(0,0, this.canvasSize.w, this.canvasSize.h)
+    },
+
     createMap() {
         this.bordersTopBottom(20, 550, 50)
         this.bordersLeftRight(10, 950, 50)
