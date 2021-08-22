@@ -39,6 +39,7 @@ const game = {
             this.moveAll()
             this.drawMap()
             player.checkGhostsCollitions(this.ghostsArray)
+            door.playerCollition(player, key)
             //player.checkCollitions()
         }, this.timeInterval);
     },
@@ -52,12 +53,16 @@ const game = {
         ghost1 = new Ghost(this.ctx, 50, 470, 20, 20)
         ghost2 = new Ghost(this.ctx, 920, 300, 20, 20)
         this.ghostsArray.push(ghost1, ghost2)
+        door = new Door(this.ctx, 80, 50, 50, 10)
+        key = new Key(this.ctx, 720, 60, 5, 15)
     },
 
     drawAll() {
         player.draw()
         ghost1.draw()
         ghost2.draw()
+        door.draw(player, key)
+        key.show()
     },
 
     moveAll() {
