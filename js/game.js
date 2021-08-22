@@ -25,7 +25,7 @@ const game = {
         player = new Player(this.ctx, 60, 60, 30, 30)
         player.draw()
         player.setListener()
-        player.checkCollitions()
+        //player.checkCollitions()
         // player.draw()
         //this.setMap();
         this.start();
@@ -36,7 +36,7 @@ const game = {
             this.clearAll()
             player.draw()
             this.drawMap()
-            player.checkCollitions()
+            //player.checkCollitions()
         }, this.timeInterval);
     },
 

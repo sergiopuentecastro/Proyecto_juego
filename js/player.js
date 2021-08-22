@@ -42,7 +42,126 @@ class Player{
     }
 
     // En las siguientes funciones, 50 es el tamaño de la clase cuadrado, cómo ponerlo sin número?
+    // Los demás números son posiciones del mapa
 
+    // All walls collitions
+    moveUp() {
+
+        if (this.y > 50) {
+            if (this.x <= 150 - this.width 
+                || this.x >= 200 && this.x <= 450 - this.width 
+                || this.x >= 500 && this.x <= 750 - this.width 
+                || this.x >= 800) {
+                    this.y -= this.speed;
+            }
+        }
+
+        if (this.y > 450) {
+            if (this.x >= 150 - this.width && this.x <= 200
+                || this.x >= 450 - this.width && this.x <= 500
+                || this.x >= 750 - this.width && this.x <= 800) {
+                    this.y -= this.speed;
+            }
+        }
+
+        /*
+        // Evita colisión con la primera barra interna
+        if ((this.y > 50 && this.x <= 150 - this.width || this.x >= 200) 
+        || (this.y > 450 && this.x >= 150 - this.width && this.x <= 200)){
+            this.y -= this.speed;  
+        }
+        */
+    }
+
+    moveDown() {
+       
+        if (this.y + this.height < game.canvasSize.h - 50) {
+            if (this.x <= 300 - this.width
+                || this.x >= 350 && this.x <= 600 - this.width
+                || this.x >= 650) {
+                    this.y += this.speed;
+            }
+        }
+
+        if (this.y + this.height < 150) {
+            if (this.x + this.width >= 300 && this.x <= 350
+                || this.x + this.width >= 600 && this.x <= 650) {
+                    this.y += this.speed;
+            }
+        }
+    }
+
+    // FALTA REVISAR LEFT Y RIGHT EN LAS VERTICALES QUE NO JUNTAN ARRIBA
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    moveLeft() {
+      
+       if (this.y <= 150) {
+           if (this.x > 50 && this.x + this.width <= 150
+            || this.x > 200 && this.x + this.width <= 450
+            || this.x > 500 && this.x + this.width <= 750
+            || this.x > 800) {
+                this.x -= this.speed;
+            } 
+        }
+
+       if (this.y >= 150 && this.y <= 450) {
+           if (this.x > 50 && this.x + this.width <= 150
+            || this.x > 200 && this.x + this.width <= 300
+            || this.x > 350 && this.x + this.width <= 450
+            || this.x > 500 && this.x + this.width <= 600
+            || this.x > 650 && this.x + this.width <= 750
+            || this.x > 800) {
+                this.x -= this.speed;
+            }
+        }
+        
+       if (this.y >= 450) {
+           if (this.x > 50 && this.x + this.width <= 300
+            || this.x > 350 && this.x + this.width <= 600
+            || this.x > 650) {
+                this.x -= this.speed;
+            }
+        }
+    }
+       
+    moveRight() {
+        /*
+        if (this.x + this.width < game.canvasSize.w - 50) {
+            this.x += this.speed;
+        }
+        */
+       if (this.y <= 150) {
+           if (this.x >= 50 && this.x + this.width < 150
+            || this.x >= 200 && this.x + this.width < 450
+            || this.x >= 500 && this.x + this.width < 750
+            || this.x >= 800 && this.x + this.width < 950) {
+                this.x += this.speed;
+            }
+        }
+
+        if (this.y >= 150 && this.y <= 450) {
+            if (this.x >= 50 && this.x + this.width < 150
+                || this.x >= 200 && this.x + this.width < 300
+                || this.x >= 350 && this.x + this.width < 450
+                || this.x >= 500 && this.x + this.width < 600
+                || this.x >= 650 && this.x + this.width < 750
+                || this.x >= 800 && this.x + this.width < 950) {
+                    this.x += this.speed;
+            }
+        }
+    
+        if (this.y >= 450) {
+            if (this.x >= 50 && this.x + this.width < 300
+                || this.x >= 350 && this.x + this.width < 600
+                || this.x >= 650 && this.x + this.width < 950) {
+                    this.x += this.speed;
+            }
+        }
+
+    }
+
+    // Esto siguiente son colisiones con bordes externos bien hecho, por si la lío al hacer las internas mezclándolo
+    /*
     // Outer edges collitions (top, bottom, left, right)
     moveUp() {
         if (this.y > 50) {
@@ -67,8 +186,10 @@ class Player{
             this.x += this.speed;
         }
     }
+    */
 
-    
+
+
 
 
 
