@@ -3,6 +3,7 @@ class Player {
         this.ctx = ctx;
         this.x = x;
         this.y = y;
+        this.initialPosition = {x: x, y: y};
         this.width = width;
         this.height = height;
         this.keys = {
@@ -12,11 +13,36 @@ class Player {
             right: 'ArrowRight'
         };
         this.speed = 10;
+        this.lives = 3;
+
     }
 
     /* En init meter new image, cosas de frames y set listener
     (esto último para quitarlo de init game) */
     // init() {}
+
+    //Si creamos más tipos de enemigos, revisar el método .some()
+    checkGhostsCollitions(ghostsArray) {
+        ghostsArray.forEach(ghost => {
+            if (ghost.x < this.x + this.width &&
+                ghost.x + ghost.width > this.x &&
+                ghost.y < this.y + this.height &&
+                ghost.height + ghost.y > this.y) {
+                    this.lives--;
+                    this.x = this.initialPosition.x;
+                    this.y = this.initialPosition.y;
+                    if (this.lives === 0) {
+                        // Gestión de GAME OVER !!!!!!
+                        // Se acaba antes de que le toque?
+                        alert("GAME OVER")
+                        this.lives = 3;
+                    }
+                    console.log(this.lives)
+            }
+        });
+    }
+
+
 
     draw() {
         this.ctx.fillStyle= "red"
@@ -198,7 +224,7 @@ class Player {
         return this.y + this.height;
     }
     
-    checkCollitions() {
+    checkSquaresCollitions() {
         if (this.x >= 920) {
 
             this.x = 920

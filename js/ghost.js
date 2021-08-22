@@ -64,7 +64,7 @@ class Ghost {
             this.x -= this.speed;
         }
     }
-       
+
     moveRight() {
         if (this.x + this.width < game.canvasSize.w - 50) {
             this.x += this.speed;

@@ -4,12 +4,15 @@ const game = {
     canvasSize: {h: null, w: null},
     background: null,
     timeInterval: 20,
+    // Map arrays
     borderTop: [],
     borderBottom: [],
     borderLeft: [],
     borderRight: [],
     verticalBars: [],
     map: [],
+    // Ghost array
+    ghostsArray: [],
     
     // Meter obstáculos, personaje, balas, whatever
     // keys: {}
@@ -35,6 +38,7 @@ const game = {
             this.drawAll()
             this.moveAll()
             this.drawMap()
+            player.checkGhostsCollitions(this.ghostsArray)
             //player.checkCollitions()
         }, this.timeInterval);
     },
@@ -45,8 +49,9 @@ const game = {
 
     createAll() {
         player = new Player(this.ctx, 60, 60, 30, 30)
-        ghost1 = new Ghost(this.ctx, 50, 500, 20, 20)
+        ghost1 = new Ghost(this.ctx, 50, 470, 20, 20)
         ghost2 = new Ghost(this.ctx, 920, 300, 20, 20)
+        this.ghostsArray.push(ghost1, ghost2)
     },
 
     drawAll() {
