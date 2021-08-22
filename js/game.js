@@ -36,7 +36,7 @@ const game = {
             this.clearAll()
             player.draw()
             this.drawMap()
-            //player.checkCollitions()
+            player.checkCollitions()
         }, this.timeInterval);
     },
 

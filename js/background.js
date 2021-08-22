@@ -13,6 +13,22 @@ class Square {
         this.ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 
+    left() {
+        return this.x;
+    }
+
+    right() {
+        return this.x + this.width;
+    }
+
+    top() {
+        return this.y;
+    }
+    
+    bottom() {
+        return this.y + this.height;
+    }
+
     // checkCollition(character) {
     //     if(((this.x > character.x)
     //         && this.x < character.x + character.width) 
