@@ -38,10 +38,18 @@ const game = {
             this.drawAll()
             this.moveAll()
             this.drawMap()
-            player.checkGhostsCollitions(this.ghostsArray)
-            door.playerCollition(player, key)
+            this.drawText()
+            player.checkGhostsCollitions()
+            door.playerCollition()
+            key.playerCollition()
             //player.checkCollitions()
         }, this.timeInterval);
+    },
+
+    drawText() {
+        this.ctx.font = '30px serif';
+        this.ctx.fillStyle = 'yellow';
+        this.ctx.fillText(`Lives: ${player.lives}`, 450, 35)
     },
 
     clearAll() {
@@ -53,7 +61,7 @@ const game = {
         ghost1 = new Ghost(this.ctx, 50, 470, 20, 20)
         ghost2 = new Ghost(this.ctx, 920, 300, 20, 20)
         this.ghostsArray.push(ghost1, ghost2)
-        door = new Door(this.ctx, 80, 50, 50, 10)
+        door = new Door(this.ctx, 850, 50, 50, 10)
         key = new Key(this.ctx, 720, 60, 5, 15)
     },
 
@@ -61,7 +69,7 @@ const game = {
         player.draw()
         ghost1.draw()
         ghost2.draw()
-        door.draw(player, key)
+        door.draw()
         key.show()
     },
 

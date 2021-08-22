@@ -11,8 +11,8 @@ class Key {
     }
 
     draw() {
-        this.ctx.fillStyle= "orange"
-        this.ctx.fillRect(this.x, this.y, this.width, this.height)
+        this.ctx.fillStyle= "orange";
+        this.ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 
     show() {
@@ -20,4 +20,19 @@ class Key {
             this.draw();
         }
     }
+
+    // When player touches key, key disappears
+    playerCollition() {
+        if (player.x < this.x + this.width &&
+            player.x + player.width > this.x &&
+            player.y < this.y + this.height &&
+            player.height + player.y > this.y) {
+                key.visibility = false;
+                player.hasKey = true;
+
+        }
+    }
+
+
+
 }

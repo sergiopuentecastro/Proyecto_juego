@@ -14,6 +14,7 @@ class Player {
         };
         this.speed = 10;
         this.lives = 3;
+        this.hasKey = false;
 
     }
 
@@ -22,8 +23,8 @@ class Player {
     // init() {}
 
     //Si creamos más tipos de enemigos, revisar el método .some()
-    checkGhostsCollitions(ghostsArray) {
-        ghostsArray.forEach(ghost => {
+    checkGhostsCollitions() {
+        game.ghostsArray.forEach(ghost => {
             if (ghost.x < this.x + this.width &&
                 ghost.x + ghost.width > this.x &&
                 ghost.y < this.y + this.height &&
