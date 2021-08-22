@@ -1,11 +1,10 @@
-class Player{
+class Player {
     constructor(ctx, x, y, width, height){ //canvasSize????
         this.ctx = ctx;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.size = {h: height, w: width};
         this.keys = {
             up: 'ArrowUp',
             down: 'ArrowDown',
@@ -15,6 +14,10 @@ class Player{
         this.speed = 10;
     }
 
+    /* En init meter new image, cosas de frames y set listener
+    (esto último para quitarlo de init game) */
+    // init() {}
+
     draw() {
         this.ctx.fillStyle= "red"
         this.ctx.fillRect(this.x, this.y, this.width, this.height)
@@ -23,8 +26,7 @@ class Player{
     setListener() {
         document.onkeydown = e => {
             
-            switch (e.key){
-                //Hacer una función para cada movimiento?? moveUp()....
+            switch (e.key) {
                 case this.keys.up:
                     this.moveUp();
                     break;
@@ -63,14 +65,6 @@ class Player{
                     this.y -= this.speed;
             }
         }
-
-        /*
-        // Evita colisión con la primera barra interna
-        if ((this.y > 50 && this.x <= 150 - this.width || this.x >= 200) 
-        || (this.y > 450 && this.x >= 150 - this.width && this.x <= 200)){
-            this.y -= this.speed;  
-        }
-        */
     }
 
     moveDown() {
@@ -91,11 +85,9 @@ class Player{
         }
     }
 
-    // FALTA REVISAR LEFT Y RIGHT EN LAS VERTICALES QUE NO JUNTAN ARRIBA
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     moveLeft() {
       
-       if (this.y <= 150) {
+       if (this.y + this.height <= 150) {
            if (this.x > 50 && this.x + this.width <= 150
             || this.x > 200 && this.x + this.width <= 450
             || this.x > 500 && this.x + this.width <= 750
@@ -104,7 +96,7 @@ class Player{
             } 
         }
 
-       if (this.y >= 150 && this.y <= 450) {
+       if (this.y + this.height >= 150 && this.y <= 450) {
            if (this.x > 50 && this.x + this.width <= 150
             || this.x > 200 && this.x + this.width <= 300
             || this.x > 350 && this.x + this.width <= 450
@@ -125,12 +117,8 @@ class Player{
     }
        
     moveRight() {
-        /*
-        if (this.x + this.width < game.canvasSize.w - 50) {
-            this.x += this.speed;
-        }
-        */
-       if (this.y <= 150) {
+       
+       if (this.y + this.height <= 150) {
            if (this.x >= 50 && this.x + this.width < 150
             || this.x >= 200 && this.x + this.width < 450
             || this.x >= 500 && this.x + this.width < 750
@@ -139,7 +127,7 @@ class Player{
             }
         }
 
-        if (this.y >= 150 && this.y <= 450) {
+        if (this.y + this.height >= 150 && this.y <= 450) {
             if (this.x >= 50 && this.x + this.width < 150
                 || this.x >= 200 && this.x + this.width < 300
                 || this.x >= 350 && this.x + this.width < 450
@@ -157,10 +145,9 @@ class Player{
                     this.x += this.speed;
             }
         }
-
     }
 
-    // Esto siguiente son colisiones con bordes externos bien hecho, por si la lío al hacer las internas mezclándolo
+    // Esto siguiente son colisiones únicamente con bordes externos
     /*
     // Outer edges collitions (top, bottom, left, right)
     moveUp() {

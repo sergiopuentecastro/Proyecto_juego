@@ -20,13 +20,11 @@ const game = {
         this.canvasSize = {h: 600, w: 1000};
         this.createMap()
         this.concatMap()
-        console.log(this.map)
+        //console.log(this.map)
         this.drawMap()
-        player = new Player(this.ctx, 60, 60, 30, 30)
-        player.draw()
+        this.createAll()
         player.setListener()
         //player.checkCollitions()
-        // player.draw()
         //this.setMap();
         this.start();
     },
@@ -34,7 +32,8 @@ const game = {
     start() {
         setInterval(() => {
             this.clearAll()
-            player.draw()
+            this.drawAll()
+            this.moveAll()
             this.drawMap()
             //player.checkCollitions()
         }, this.timeInterval);
@@ -42,6 +41,25 @@ const game = {
 
     clearAll() {
         this.ctx.clearRect(0,0, this.canvasSize.w, this.canvasSize.h)
+    },
+
+    createAll() {
+        player = new Player(this.ctx, 60, 60, 30, 30)
+        ghost1 = new Ghost(this.ctx, 50, 500, 20, 20)
+        ghost2 = new Ghost(this.ctx, 920, 300, 20, 20)
+    },
+
+    drawAll() {
+        player.draw()
+        ghost1.draw()
+        ghost2.draw()
+    },
+
+    moveAll() {
+        ghost1.move()
+        ghost2.move()
+        ghost1.checkCollition()
+        ghost2.checkCollition()
     },
 
     /* HECHO (SE PUEDE ACCEDER A LO ANTERIOR CON GIT):
