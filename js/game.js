@@ -27,7 +27,7 @@ const game = {
         this.drawMap()
         this.createAll()
         player.setListener()
-        //player.checkCollitions()
+        //player.checkCollisions()
         //this.setMap();
         this.start();
     },
@@ -39,10 +39,11 @@ const game = {
             this.moveAll()
             this.drawMap()
             this.drawText()
-            player.checkGhostsCollitions()
-            door.playerCollition()
-            key.playerCollition()
-            //player.checkCollitions()
+            player.checkGhostsCollisions()
+            door.playerCollision()
+            key.playerCollision()
+            this.createShowKey()
+            //player.checkCollisions()
         }, this.timeInterval);
     },
 
@@ -76,8 +77,8 @@ const game = {
     moveAll() {
         ghost1.move()
         ghost2.move()
-        ghost1.checkCollition()
-        ghost2.checkCollition()
+        ghost1.checkCollision()
+        ghost2.checkCollision()
     },
 
     /* HECHO (SE PUEDE ACCEDER A LO ANTERIOR CON GIT):

@@ -15,15 +15,16 @@ class Door {
 
     // When player touches door, key appears
     // Si ponemos puerta en otra posición, añadir condición que falta " && player.height + player.y > this.y"
-    playerCollition() {
+    playerCollision() {
         if (player.x < this.x + this.width &&
             player.x + player.width > this.x &&
             player.y < this.y + this.height) {
                 if (player.hasKey === false) {
                     key.visibility = true;
+                    player.hasTouchedDoor = true;
                 } else {
                     // Esto debe llevar al siguiente nivel
-                    alert ("YOU WIN JESÚS");
+                    alert ("YOU WIN!");
                 }
         }
     }

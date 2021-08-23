@@ -15,6 +15,7 @@ class Player {
         this.speed = 10;
         this.lives = 3;
         this.hasKey = false;
+        this.hasTouchedDoor = false;
 
     }
 
@@ -23,7 +24,7 @@ class Player {
     // init() {}
 
     //Si creamos más tipos de enemigos, revisar el método .some()
-    checkGhostsCollitions() {
+    checkGhostsCollisions() {
         game.ghostsArray.forEach(ghost => {
             if (ghost.x < this.x + this.width &&
                 ghost.x + ghost.width > this.x &&
@@ -42,8 +43,6 @@ class Player {
             }
         });
     }
-
-
 
     draw() {
         this.ctx.fillStyle= "red"
@@ -73,8 +72,8 @@ class Player {
     // En las siguientes funciones, 50 es el tamaño de la clase cuadrado, cómo ponerlo sin número?
     // Los demás números son posiciones del mapa
 
-    // All walls collitions
-    moveUp() {
+    // All walls collisions
+    moveUp(borderTop) {
 
         if (this.y > 50) {
             if (this.x <= 150 - this.width 
@@ -176,7 +175,7 @@ class Player {
 
     // Esto siguiente son colisiones únicamente con bordes externos
     /*
-    // Outer edges collitions (top, bottom, left, right)
+    // Outer edges collisions (top, bottom, left, right)
     moveUp() {
         if (this.y > 50) {
             this.y -= this.speed;
@@ -225,7 +224,7 @@ class Player {
         return this.y + this.height;
     }
     
-    checkSquaresCollitions() {
+    checkSquaresCollisions() {
         if (this.x >= 920) {
 
             this.x = 920

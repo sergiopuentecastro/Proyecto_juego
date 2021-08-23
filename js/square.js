@@ -29,7 +29,7 @@ class Square {
         return this.y + this.height;
     }
 
-    // checkCollition(character) {
+    // checkCollision(character) {
     //     if(((this.x > character.x)
     //         && this.x < character.x + character.width) 
     //         && ((this.y > character.y || this.y + this.height > character.y)

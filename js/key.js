@@ -20,16 +20,18 @@ class Key {
             this.draw();
         }
     }
+    
 
     // When player touches key, key disappears
-    playerCollition() {
+    playerCollision() {
         if (player.x < this.x + this.width &&
             player.x + player.width > this.x &&
             player.y < this.y + this.height &&
             player.height + player.y > this.y) {
-                key.visibility = false;
-                player.hasKey = true;
-
+                if (player.hasTouchedDoor) {
+                    key.visibility = false;
+                    player.hasKey = true;
+                }
         }
     }
 

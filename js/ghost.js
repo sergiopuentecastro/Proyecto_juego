@@ -22,7 +22,7 @@ class Ghost {
 
     // 50 es el tamaño de la clase cuadrado, cómo ponerlo sin número?
     // Los demás números son posiciones del mapa
-    checkCollition() {
+    checkCollision() {
         if (this.x == 50) {
             this.speed *= -1;
             //console.log('fantasmita pa la derecha')
@@ -46,7 +46,7 @@ class Ghost {
 
     // Esto siguiente son colisiones únicamente con bordes externos
     /*
-    // Outer edges collitions (top, bottom, left, right)
+    // Outer edges collisions (top, bottom, left, right)
     moveUp() {
         if (this.y > 50) {
             this.y -= this.speed;
